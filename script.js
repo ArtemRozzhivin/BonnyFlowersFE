@@ -621,7 +621,7 @@ categoryList.insertAdjacentHTML('afterbegin', `
 // PRODUCT-LIST
 // змінна quickSelectionMenuProducts — це тимчасовий список значень для випадаючого списку products("Квіти"),
 // актуальні значення згодом надасть DjangoTemplateEngine
-const quickSelectionMenuProducts = [
+let quickSelectionMenuProducts = [
   "Рози",
   "Тюльпати",
   "Хризантеми",
@@ -655,7 +655,13 @@ productList.insertAdjacentHTML('afterbegin', `
 `);
 
 const accordionCategory = document.querySelector('.accordion-category');
+const quickSelectionMenuAccordions = document.querySelectorAll('.disabled-text');
+const quickSelectionMenuBtn = document.querySelector('.disabled-button');
 
+// При виборі радіобатону зі списку categories("Підкатегорія продукту")
+// Відправиться запит на сервер і в разі успішного запиту 
+// відповідь встановиться в змінну quickSelectionMenuProducts
+// і відкриється доступ до взаємодії з наступними випадаючими списками і кнопкою
 accordionCategory.addEventListener('change', event => {
   const item = event.target.closest('.form-check-input:checked');
 
@@ -666,6 +672,29 @@ accordionCategory.addEventListener('change', event => {
 
   event.preventDefault();
 
-  const selectedCategory = event.target.nextElementSibling.textContent;
+  const selectedCategory = item.nextElementSibling.textContent;
   console.log('selectedCategory>>', selectedCategory);
+
+  try {
+    async function fetchData() {
+      const response = await axios.get('https://jsonplaceholder.typicode.com/posts111111/1');
+      console.log('Успішний GET-запит:', response.data);
+      quickSelectionMenuProducts = response.data;
+    }
+  
+    fetchData();
+  } catch (error) {
+    console.error('Помилка GET-запиту:', error);
+  } finally {
+
+    // вміст finally потрібно буде перемістити в try і він має виконуватися після отримання відповіді
+    [...quickSelectionMenuAccordions].forEach(accordion => {
+      accordion.disabled = false
+      accordion.classList.remove('disabled-text');
+    });
+    quickSelectionMenuBtn.disabled = false;
+    quickSelectionMenuBtn.classList.remove('disabled-button');
+  }
 });
+
+
