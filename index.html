@@ -1701,6 +1701,8 @@
 
                     <form action="" method="get"></form>
                         <div class="quick-selection-menu-select-group">
+
+                            <!-- QUICK-SELECTION-MENU CATEGORIES-->
                             <div class="accordion-category" id="accordionCategory">
                                 <h2 class="accordion-header" id="headingOne">
                                     <button
@@ -1724,6 +1726,7 @@
                                 </div>
                             </div>
 
+                            <!-- QUICK-SELECTION-MENU PRODUCTS-->
                             <div class="accordion-category" id="accordionProduct">
                                 <h2 class="accordion-header" id="headingOne">
                                     <button
@@ -1748,6 +1751,7 @@
                                 </div>
                             </div>
 
+                            <!-- QUICK-SELECTION-MENU BUDGET-->
                             <div class="accordion-category" id="accordionBudget">
                                 <h2 class="accordion-header" id="headingOne">
                                     <button
@@ -1769,24 +1773,31 @@
                                     data-bs-parent="#accordionBudget"
                                 >
                                     <div class="accordion-body budget-list">
-                                        <div class="quick-selection-menu-input-group">
-                                            <input
-                                                type="number"
-                                                class="p-16-auto-regular darck-gray search-input quick-selection-menu-input"
-                                                placeholder="Від"
-                                                min="0"
-                                            />
-                                            <input
-                                                type="number"
-                                                class="p-16-auto-regular darck-gray search-input quick-selection-menu-input"
-                                                placeholder="До"
-                                                min="0"
-                                            />
+                                        <div id="rangeBudgetList" class="range-slider">
+                                            <div class="number-group">
+                                                <input
+                                                    class="number-input p-16-auto-medium"
+                                                    type="number"
+                                                    value="1"
+                                                    min="0"
+                                                    max="100"
+                                                    placeholder="Від..."
+                                                />
+                                                <input
+                                                    class="number-input p-16-auto-medium"
+                                                    type="number"
+                                                    value="100"
+                                                    min="0"
+                                                    max="100"
+                                                    placeholder="До..."
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
+                            <!-- QUICK-SELECTION-MENU BUTTON-->
                             <button
                                 class="button-main-text p-16-auto-bold quick-selection-menu-btn disabled-button"
                                 type="subimit"

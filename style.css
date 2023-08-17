@@ -130,14 +130,6 @@ button {
     background-color: transparent;
 }
 
-/* REMOVE ARROWS FROM INPUT TYPE NUMBER */
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 /* MAIN-STYLES */
 
 .container {
@@ -2710,17 +2702,7 @@ input[type="number"]::-webkit-outer-spin-button {
   align-items: center;
 }
 
-.quick-selection-menu-input-group {
-  display: flex;
-  gap: 20px;
-}
-
 .quick-selection-menu-label {
-  font-weight: 500;
-}
-
-.quick-selection-menu-input {
-  width: 80px;
   font-weight: 500;
 }
 
