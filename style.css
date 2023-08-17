@@ -2670,7 +2670,7 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: var(--white);
   max-width: 1390px;
   width: 100%;
-  padding: 60px 20px;
+  padding: 0 20px;
 }
 
 .accordion-category
