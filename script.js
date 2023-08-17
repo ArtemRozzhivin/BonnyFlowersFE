@@ -581,3 +581,68 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 });
+
+// QUICK-SELECTION-MENU
+
+// CATEGORY-LIST
+
+const quickSelectionMenuCategories = [
+  "Квіти на день народження",
+  "На 8 березня",
+  "На 8 березня",
+  "На 8 березня",
+  "На 8 березня",
+  "На 8 березня",
+  "На 8 березня"
+];
+
+const categoryList = document.querySelector('.category-list');
+
+categoryList.insertAdjacentHTML('afterbegin', `
+  <ul class="accordion-list-group">
+    ${quickSelectionMenuCategories.map((category, i) => `
+      <li class="radio-input-group">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="сategoryName"
+          id="сategoryName-${i}"
+        />
+        <label class="quick-selection-menu-label" for="сategoryName-${i}">${category}</label>
+      </li>
+    `).join('')}
+  </ul>
+`);
+
+// PRODUCT-LIST
+
+const quickSelectionMenuProducts = [
+  "Рози",
+  "Тюльпати",
+  "Хризантеми",
+  "Еустоми",
+  "Лілії",
+  "Гвоздики",
+  "Гербери",
+  "Гортензії",
+  "Піони",
+  "Ромашки",
+];
+
+const productList = document.querySelector('.product-list');
+
+productList.insertAdjacentHTML('afterbegin', `
+  <ul class="accordion-list-group">
+    ${quickSelectionMenuProducts.map((product, i) => `
+      <li class="radio-input-group">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value="${product}"
+          id="productName-${i}"
+        />
+        <label class="quick-selection-menu-label" for="productName-${i}">${product}</label>
+      </li>
+    `).join('')}
+  </ul>
+`);
