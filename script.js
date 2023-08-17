@@ -653,3 +653,19 @@ productList.insertAdjacentHTML('afterbegin', `
     `).join('')}
   </ul>
 `);
+
+const accordionCategory = document.querySelector('.accordion-category');
+
+accordionCategory.addEventListener('change', event => {
+  const item = event.target.closest('.form-check-input:checked');
+
+  console.log('item>>', item);
+  if (!item || !accordionCategory.contains(item)) {
+    return;
+  }
+
+  event.preventDefault();
+
+  const selectedCategory = event.target.nextElementSibling.textContent;
+  console.log('selectedCategory>>', selectedCategory);
+});
