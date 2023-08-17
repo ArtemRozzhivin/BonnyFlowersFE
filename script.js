@@ -585,19 +585,23 @@ document.addEventListener('DOMContentLoaded', function () {
 // QUICK-SELECTION-MENU
 
 // CATEGORY-LIST
-
+// змінна quickSelectionMenuCategories — це тимчасовий список значень 
+// для випадаючого списку categories("Підкатегорія продукту"),
+// актуальні значення згодом надасть DjangoTemplateEngine
 const quickSelectionMenuCategories = [
   "Квіти на день народження",
   "На 8 березня",
-  "На 8 березня",
-  "На 8 березня",
-  "На 8 березня",
-  "На 8 березня",
-  "На 8 березня"
+  "На 9 березня",
+  "На 10 березня",
+  "На 11 березня",
+  "На 12 березня",
+  "На 13 березня"
 ];
 
 const categoryList = document.querySelector('.category-list');
 
+// Вставка списку значень для "Підкатегорія продукту" в вигляді HTML-рядка
+// за допомогою `insertAdjacentHTML` до вказаного місця в структурі DOM
 categoryList.insertAdjacentHTML('afterbegin', `
   <ul class="accordion-list-group">
     ${quickSelectionMenuCategories.map((category, i) => `
@@ -615,7 +619,8 @@ categoryList.insertAdjacentHTML('afterbegin', `
 `);
 
 // PRODUCT-LIST
-
+// змінна quickSelectionMenuProducts — це тимчасовий список значень для випадаючого списку products("Квіти"),
+// актуальні значення згодом надасть DjangoTemplateEngine
 const quickSelectionMenuProducts = [
   "Рози",
   "Тюльпати",
@@ -631,6 +636,8 @@ const quickSelectionMenuProducts = [
 
 const productList = document.querySelector('.product-list');
 
+// Вставка списку значень для "Квіти" в вигляді HTML-рядка
+// за допомогою `insertAdjacentHTML` до вказаного місця в структурі DOM
 productList.insertAdjacentHTML('afterbegin', `
   <ul class="accordion-list-group">
     ${quickSelectionMenuProducts.map((product, i) => `
