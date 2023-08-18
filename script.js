@@ -644,8 +644,8 @@ productList.insertAdjacentHTML('afterbegin', `
       <li class="radio-input-group">
         <input
           class="form-check-input quick-selection-menu-product"
-          type="checkbox"
-          value="${product}"
+          type="radio"
+          name="productName"
           id="productName-${i}"
         />
         <label class="quick-selection-menu-label" for="productName-${i}">${product}</label>
@@ -773,12 +773,13 @@ const quickSelectionMenuForm = document.querySelector('.quick-selection-menu-for
 quickSelectionMenuForm.addEventListener('submit', event => {
   event.preventDefault();
 
-  const products = document.querySelectorAll('.quick-selection-menu-product:checked');
-  const selectedProducts = [...products].map(product => product.nextElementSibling.textContent);
-
+  const selectedProduct = document.querySelector('.quick-selection-menu-product:checked')
+    .nextElementSibling.textContent;
   const minBudget = document.querySelector('.quick-selection-menu-min-budget').value;
   const maxBudget = document.querySelector('.quick-selection-menu-product-max-budget').value;
-  if (!selectedProducts.length) {
+
+  console.log({selectedProduct, minBudget, maxBudget});
+  if (!selectedProduct.length) {
     return;
   }
 
@@ -788,7 +789,7 @@ quickSelectionMenuForm.addEventListener('submit', event => {
       // і відповідно до нього правильно передати параметри
       const response = await axios.get(
         'https://jsonplaceholder.typicode.com/posts111111/1', 
-        {selectedProducts, minBudget, maxBudget}
+        {selectedProduct, minBudget, maxBudget}
       );
 
       // В разі успіху присвоюємо відповідь в змінну
