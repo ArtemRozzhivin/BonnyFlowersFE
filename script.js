@@ -786,7 +786,7 @@ quickSelectionMenuForm.addEventListener('submit', event => {
   try {
     async function fetchData() {
       // Вміст GET-запиту потрібно буде змінити коли буде готовий ендпоінт 
-      // і відповідно до нього правильно передати параметри
+      // і відповідно до нього правильно передати параметри.
       const response = await axios.get(
         'https://jsonplaceholder.typicode.com/posts111111/1', 
         {selectedProduct, minBudget, maxBudget}
