@@ -2671,6 +2671,10 @@ button {
     background-color: transparent;
 }
 
+.quick-selection-menu-accordion-item {
+  border-width: 0;
+}
+
 .quick-selection-menu-title {
   padding-top: 70px;
 }
@@ -2723,6 +2727,10 @@ button {
 @media screen and (max-width: 700px) {
   .quick-selection-menu-container {
     display: block;
+  }
+
+  .quick-selection-menu-accordion-item {
+    border-width: 1px;
   }
 
   .quick-selection-menu-image {

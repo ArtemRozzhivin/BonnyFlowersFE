@@ -1699,98 +1699,104 @@
                         Швидкий підбір
                     </h4>
 
-                    <form action="" method="get"></form>
+                    <form action="" method="get">
                         <div class="quick-selection-menu-select-group">
 
                             <!-- QUICK-SELECTION-MENU CATEGORIES-->
                             <div class="accordion-category" id="accordionCategory">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button
-                                        class="accordion-button collapsed p-16-auto-regular"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#collapseCategory"
-                                        aria-expanded="false"
-                                        aria-controls="collapseCategory"
+                                <div class="accordion-item quick-selection-menu-accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button
+                                            class="accordion-button collapsed p-16-auto-regular"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapseCategory"
+                                            aria-expanded="false"
+                                            aria-controls="collapseCategory"
+                                        >
+                                            Підкатегорія продукту
+                                        </button>
+                                    </h2>
+                                    <div
+                                        id="collapseCategory"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="headingCategory"
+                                        data-bs-parent="#accordionCategory"
                                     >
-                                        Підкатегорія продукту
-                                    </button>
-                                </h2>
-                                <div
-                                    id="collapseCategory"
-                                    class="accordion-collapse collapse"
-                                    aria-labelledby="headingCategory"
-                                    data-bs-parent="#accordionCategory"
-                                >
-                                    <div class="accordion-body category-list"></div>
+                                        <div class="accordion-body category-list"></div>
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- QUICK-SELECTION-MENU PRODUCTS-->
                             <div class="accordion-category" id="accordionProduct">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button
-                                        class="accordion-button collapsed p-16-auto-regular disabled-text"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#collapseProduct"
-                                        aria-expanded="false"
-                                        aria-controls="collapseProduct"
-                                        disabled
+                                <div class="accordion-item quick-selection-menu-accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button
+                                            class="accordion-button collapsed p-16-auto-regular disabled-text"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapseProduct"
+                                            aria-expanded="false"
+                                            aria-controls="collapseProduct"
+                                            disabled
+                                        >
+                                            Квітка
+                                        </button>
+                                    </h2>
+                                    <div
+                                        id="collapseProduct"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="headingProduct"
+                                        data-bs-parent="#accordionProduct"
                                     >
-                                        Квітка
-                                    </button>
-                                </h2>
-                                <div
-                                    id="collapseProduct"
-                                    class="accordion-collapse collapse"
-                                    aria-labelledby="headingProduct"
-                                    data-bs-parent="#accordionProduct"
-                                >
-                                    <div class="accordion-body product-list"></div>
+                                        <div class="accordion-body product-list"></div>
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- QUICK-SELECTION-MENU BUDGET-->
                             <div class="accordion-category" id="accordionBudget">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button
-                                        class="accordion-button collapsed p-16-auto-regular disabled-text"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#collapseBudget"
-                                        aria-expanded="false"
-                                        aria-controls="collapseBudget"
-                                        disabled
+                                <div class="accordion-item quick-selection-menu-accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button
+                                            class="accordion-button collapsed p-16-auto-regular disabled-text"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapseBudget"
+                                            aria-expanded="false"
+                                            aria-controls="collapseBudget"
+                                            disabled
+                                        >
+                                            Бюджет
+                                        </button>
+                                    </h2>
+                                    <div
+                                        id="collapseBudget"
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="headingBudget"
+                                        data-bs-parent="#accordionBudget"
                                     >
-                                        Бюджет
-                                    </button>
-                                </h2>
-                                <div
-                                    id="collapseBudget"
-                                    class="accordion-collapse collapse"
-                                    aria-labelledby="headingBudget"
-                                    data-bs-parent="#accordionBudget"
-                                >
-                                    <div class="accordion-body budget-list">
-                                        <div id="rangeBudgetList" class="range-slider">
-                                            <div class="number-group">
-                                                <input
-                                                    class="number-input p-16-auto-medium"
-                                                    type="number"
-                                                    value="1"
-                                                    min="0"
-                                                    max="100"
-                                                    placeholder="Від..."
-                                                />
-                                                <input
-                                                    class="number-input p-16-auto-medium"
-                                                    type="number"
-                                                    value="100"
-                                                    min="0"
-                                                    max="100"
-                                                    placeholder="До..."
-                                                />
+                                        <div class="accordion-body budget-list">
+                                            <div id="rangeBudgetList" class="range-slider">
+                                                <div class="number-group">
+                                                    <input
+                                                        class="number-input p-16-auto-medium"
+                                                        type="number"
+                                                        value="1"
+                                                        min="0"
+                                                        max="100"
+                                                        placeholder="Від..."
+                                                    />
+                                                    <input
+                                                        class="number-input p-16-auto-medium"
+                                                        type="number"
+                                                        value="100"
+                                                        min="0"
+                                                        max="100"
+                                                        placeholder="До..."
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1810,7 +1816,6 @@
                 </div> 
 
                 <div class="quick-selection-menu-image"></div>
-                
             </div>
         </section>
 
