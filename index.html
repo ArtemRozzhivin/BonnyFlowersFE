@@ -1692,14 +1692,14 @@
 
         <!-- QUICK-SELECTION-MENU -->
         <h2 class="h1-42-auto-medium white">Quick selection menu</h2>
-        <section class="quick-selection-menu">
+        <section class="quick-selection-menu m-b-60">
             <div class="quick-selection-menu-container">
                 <div>
                     <h4 class="quick-selection-menu-title h1-42-auto-bold m-b-70">
                         Швидкий підбір
                     </h4>
 
-                    <form action="" method="get">
+                    <form class="quick-selection-menu-form">
                         <div class="quick-selection-menu-select-group">
 
                             <!-- QUICK-SELECTION-MENU CATEGORIES-->
@@ -1781,7 +1781,7 @@
                                             <div id="rangeBudgetList" class="range-slider">
                                                 <div class="number-group">
                                                     <input
-                                                        class="number-input p-16-auto-medium"
+                                                        class="number-input p-16-auto-medium quick-selection-menu-min-budget"
                                                         type="number"
                                                         value="1"
                                                         min="0"
@@ -1789,7 +1789,7 @@
                                                         placeholder="Від..."
                                                     />
                                                     <input
-                                                        class="number-input p-16-auto-medium"
+                                                        class="number-input p-16-auto-medium quick-selection-menu-product-max-budget"
                                                         type="number"
                                                         value="100"
                                                         min="0"
@@ -1817,6 +1817,8 @@
 
                 <div class="quick-selection-menu-image"></div>
             </div>
+
+            <div class="quick-selection-menu-slider"></div>
         </section>
 
         <!-- SLIDER-FAST-SEARCH -->
