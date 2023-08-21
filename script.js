@@ -868,6 +868,9 @@ if (filteredProductsList.length) {
                       <a
                         class="p-16-auto-regular red"
                         href="#"
+                        data-bs-toggle="modal"
+                        data-bs-target="#fastOrderModal"
+                        data-product-id="${i}"
                       >
                         Швидке замовлення
                       </a>
@@ -890,3 +893,7 @@ if (filteredProductsList.length) {
     </section>
   `)
 }
+
+// MODAL-FAST-ORDER
+
+// const fastOrderModal = document.querySelector('.fastOrderModal');
