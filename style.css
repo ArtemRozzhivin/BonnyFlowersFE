@@ -2851,6 +2851,12 @@ button {
     grid-template-columns: repeat(3, 1fr);
 }
 
+@media only screen and (max-width: 767px) {
+  .slider-product-container .slide-card-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* SLIDE-ANIMATION */
 
 .slider-product-container .slide_group.animated {
@@ -3906,3 +3912,41 @@ footer {
         display: none;
     }
 }
+
+/* MODAL-INDIVIDUAL-ORDER */
+
+.individual-order-modal-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  width: 400px;
+}
+
+.individual-order-modal-name {
+  padding: 13px;
+}
+
+.individual-order-modal-tel {
+  padding: 10px;
+}
+
+.individual-order-modal-price {
+  width: 100%;
+  padding: 0;
+}
+
+.individual-order-modal-file {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.individual-order-modal-placeholder {
+  color: var(--gray, #CCC);
+}
+/* 
+@media screen and (min-width: 700px) {
+  
+} */
