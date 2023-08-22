@@ -894,6 +894,26 @@ if (filteredProductsList.length) {
   `)
 }
 
-// MODAL-FAST-ORDER
+// MODAL-INDIVIDUAL-ORDER
 
-// const fastOrderModal = document.querySelector('.fastOrderModal');
+const individualOrderForm = document.querySelector('.individual-order-modal-form');
+const individualOrderName = document.querySelector('.individual-order-modal-name');
+const individualOrderTel = document.querySelector('.individual-order-modal-tel');
+const individualOrderButton = document.querySelector('.individual-order-modal-button');
+
+individualOrderName.addEventListener('input', checkIndividualOrderInputs)
+individualOrderTel.addEventListener('input', checkIndividualOrderInputs)
+
+function checkIndividualOrderInputs() {
+  if (individualOrderName.value.trim() && individualOrderTel.value) {
+    individualOrderButton.classList.remove('disabled-button');
+    individualOrderButton.disabled = false;
+  } else {
+    individualOrderButton.classList.add('disabled-button');
+    individualOrderButton.disabled = true;
+  }
+}
+
+individualOrderForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+})

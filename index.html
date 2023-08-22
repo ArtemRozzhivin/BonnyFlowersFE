@@ -2501,13 +2501,14 @@
                           Індивідуальне замовлення
                         </h5>
                         <div class="input-tell-container">
-                            <form action="#" method="post">
+                            <form action="#" method="post" class="individual-order-modal-form">
                                 <div class="content">
                                     <input
                                         type="text"
                                         id="text"
                                         class="p-16-auto-regular darck-gray input-text individual-order-modal-name"
                                         placeholder="Ваше ім’я"
+                                        required
                                     />
 
                                     <div class="form-group">
@@ -2517,6 +2518,7 @@
                                             name="leyka_donor_phone"
                                             inputmode="tel"
                                             value=""
+                                            required
                                         />
                                     </div>
 
@@ -2545,7 +2547,7 @@
                                                     <div id="rangeBudgetList" class="range-slider">
                                                         <div class="number-group">
                                                             <input
-                                                                class="number-input p-16-auto-medium quick-selection-menu-min-budget"
+                                                                class="number-input p-16-auto-medium individual-order-modal-min-budget"
                                                                 type="number"
                                                                 value="1"
                                                                 min="0"
@@ -2555,7 +2557,7 @@
                                                             <span class="quick-selection-menu-currency-symbol">₴</span>
 
                                                             <input
-                                                                class="number-input p-16-auto-medium quick-selection-menu-product-max-budget"
+                                                                class="number-input p-16-auto-medium individual-order-modal-max-budget"
                                                                 type="number"
                                                                 value="100"
                                                                 min="0"
@@ -2573,7 +2575,7 @@
                                   <div>
                                       <input
                                           type="file"
-                                          class="search-input-trigger"
+                                          class="individual-order-modal-file-input"
                                           accept=".png, .jpeg, .jpg, .gif, .bmp"
                                           placeholder="Фото прикладу"
                                           id="individualOrderModalFileInput"
@@ -2595,9 +2597,10 @@
                                 </div>
 
                                 <button
-                                    class="button-main-text p-16-auto-bold"
+                                    class="button-main-text p-16-auto-bold disabled-button individual-order-modal-button"
                                     type="subimit"
-                                    value="Отправить"
+                                    value="Залишити заявку"
+                                    disabled
                                 >
                                     Залишити заявку
                                 </button>

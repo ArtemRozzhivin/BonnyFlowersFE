@@ -3946,7 +3946,6 @@ footer {
 .individual-order-modal-placeholder {
   color: var(--gray, #CCC);
 }
-/* 
-@media screen and (min-width: 700px) {
-  
-} */
+
+/* @media screen and (max-width: 768px) { */
+/* } */
