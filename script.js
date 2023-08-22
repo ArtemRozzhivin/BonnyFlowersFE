@@ -908,16 +908,12 @@ const individualOrderFileLoadIcon = document.querySelector('.individual-order-mo
 individualOrderName.addEventListener('input', checkIndividualOrderInputs)
 individualOrderTel.addEventListener('input', checkIndividualOrderInputs)
 
-
-// Якщо введено ім'я і телефон користувачем - кнопка "Залишити заявку" стане активною
 function checkIndividualOrderInputs() {
-  if (individualOrderName.value.trim() && individualOrderTel.value) {
-    individualOrderButton.classList.remove('disabled-button');
-    individualOrderButton.disabled = false;
-  } else {
-    individualOrderButton.classList.add('disabled-button');
-    individualOrderButton.disabled = true;
-  }
+  const nameValue = individualOrderName.value.trim();
+  const telValue = individualOrderTel.value;
+
+  individualOrderButton.classList.toggle('disabled-button', !(nameValue && telValue));
+  individualOrderButton.disabled = !(nameValue && telValue);
 }
 
 individualOrderForm.addEventListener('submit', (event) => {
