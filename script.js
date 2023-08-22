@@ -581,3 +581,362 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 });
+
+// QUICK-SELECTION-MENU
+
+    // CATEGORY-LIST
+// змінна quickSelectionMenuCategories — це тимчасовий список значень 
+// для випадаючого списку categories("Підкатегорія продукту"),
+// актуальні значення згодом надасть DjangoTemplateEngine
+const quickSelectionMenuCategories = [
+  "Квіти на день народження",
+  "На 8 березня",
+  "На 9 березня",
+  "На 10 березня",
+  "На 11 березня",
+  "На 12 березня",
+  "На 13 березня"
+];
+
+const categoryList = document.querySelector('.category-list');
+
+// Вставка списку значень для "Підкатегорія продукту" в вигляді HTML-рядка
+// за допомогою `insertAdjacentHTML` до вказаного місця в структурі DOM
+categoryList.insertAdjacentHTML('afterbegin', `
+  <ul class="accordion-list-group">
+    ${quickSelectionMenuCategories.map((category, i) => `
+      <li class="radio-input-group">
+        <input
+          class="form-check-input quick-selection-menu-category"
+          type="radio"
+          name="сategoryName"
+          id="сategoryName-${i}"
+        />
+        <label class="quick-selection-menu-label" for="сategoryName-${i}">${category}</label>
+      </li>
+    `).join('')}
+  </ul>
+`);
+
+    // PRODUCT-LIST
+// змінна quickSelectionMenuProducts — це тимчасовий список значень для випадаючого списку products("Квіти"),
+// актуальні значення згодом будуть доступні коли буде реалізовано відповідний ендПоінт
+let quickSelectionMenuProducts = [
+  "Рози",
+  "Тюльпати",
+  "Хризантеми",
+  "Еустоми",
+  "Лілії",
+  "Гвоздики",
+  "Гербери",
+  "Гортензії",
+  "Піони",
+  "Ромашки",
+];
+
+const productList = document.querySelector('.product-list');
+
+// Вставка списку значень для "Квіти" в вигляді HTML-рядка
+// за допомогою `insertAdjacentHTML` до вказаного місця в структурі DOM
+productList.insertAdjacentHTML('afterbegin', `
+  <ul class="accordion-list-group">
+    ${quickSelectionMenuProducts.map((product, i) => `
+      <li class="radio-input-group">
+        <input
+          class="form-check-input quick-selection-menu-product"
+          type="radio"
+          name="productName"
+          id="productName-${i}"
+        />
+        <label class="quick-selection-menu-label" for="productName-${i}">${product}</label>
+      </li>
+    `).join('')}
+  </ul>
+`);
+
+const accordionCategory = document.querySelector('.accordion-category');
+const quickSelectionMenuAccordions = document.querySelectorAll('.disabled-text');
+const quickSelectionMenuBtn = document.querySelector('.disabled-button');
+
+// При виборі радіобатону зі списку categories("Підкатегорія продукту")
+// Відправиться запит на сервер і в разі успішного запиту 
+// відповідь встановиться в змінну quickSelectionMenuProducts
+// і відкриється доступ до взаємодії з наступними випадаючими списками і кнопки
+accordionCategory.addEventListener('change', event => {
+  const item = event.target.closest('.quick-selection-menu-category:checked');
+
+  if (!item || !accordionCategory.contains(item)) {
+    return;
+  }
+
+  event.preventDefault();
+
+  const selectedCategory = item.nextElementSibling.textContent;
+
+  try {
+    async function fetchData() {
+      // Вміст GET-запиту потрібно буде змінити коли буде готовий ендпоінт 
+      // і відповідно до нього правильно передати параметри
+      const response = await axios.get('https://jsonplaceholder.typicode.com/posts111111/1', selectedCategory);
+      quickSelectionMenuProducts = response.data;
+    }
+  
+    fetchData();
+  } catch (error) {
+    console.error('Помилка GET-запиту:', error);
+  } finally {
+
+    // вміст finally потрібно буде перемістити в try і він має виконуватися після отримання відповіді
+    [...quickSelectionMenuAccordions].forEach(accordion => {
+      accordion.disabled = false
+      accordion.classList.remove('disabled-text');
+    });
+    quickSelectionMenuBtn.disabled = false;
+    quickSelectionMenuBtn.classList.remove('disabled-button');
+  }
+});
+
+    // QUICK-SELECTION-MENU SUBMIT
+// змінна filteredProductsList — це тимчасовий масив об'єктів для карточок, 
+// які відрендеряться після після того як користувач відправить запит у quick selection menu,
+// актуальні значення згодом будуть доступні коли буде реалізовано відповідний ендПоінт
+const filteredProductsList = [
+  {
+    img_url: './img/flower-img.png',
+    title: 'Назва квітки 1',
+    price: '199',
+    discount_price: '179,00',
+    discount: '10',
+    product_url: 'https://jsonplaceholder.typicode.com/posts111111/1',
+  },
+  {
+    img_url: './img/flower-img.png',
+    title: 'Назва квітки 2',
+    price: '299',
+    discount_price: '279,00',
+    discount: '20',
+    product_url: 'https://jsonplaceholder.typicode.com/posts111111/1',
+  },
+  {
+    img_url: './img/flower-img.png',
+    title: 'Назва квітки 3',
+    price: '399',
+    discount_price: '379,00',
+    discount: '30',
+    product_url: 'https://jsonplaceholder.typicode.com/posts111111/1',
+  },
+  {
+    img_url: './img/flower-img.png',
+    title: 'Назва квітки 4',
+    price: '499',
+    discount_price: '479,00',
+    discount: '40',
+    product_url: 'https://jsonplaceholder.typicode.com/posts111111/1',
+  },
+  {
+    img_url: './img/flower-img.png',
+    title: 'Назва квітки 5',
+    price: '599',
+    discount_price: '579,00',
+    discount: '50',
+    product_url: 'https://jsonplaceholder.typicode.com/posts111111/1',
+  },
+  {
+    img_url: './img/flower-img.png',
+    title: 'Назва квітки 6',
+    price: '699',
+    discount_price: '679,00',
+    discount: '60',
+    product_url: 'https://jsonplaceholder.typicode.com/posts111111/1',
+  },
+  {
+    img_url: './img/flower-img.png',
+    title: 'Назва квітки 7',
+    price: '799',
+    discount_price: '779,00',
+    discount: '70',
+    product_url: 'https://jsonplaceholder.typicode.com/posts111111/1',
+  },
+  {
+    img_url: './img/flower-img.png',
+    title: 'Назва квітки 8',
+    price: '899',
+    discount_price: '879,00',
+    discount: '80',
+    product_url: 'https://jsonplaceholder.typicode.com/posts111111/1',
+  },
+];
+
+// Слухач подій для quick selection menu при події submit
+const quickSelectionMenuForm = document.querySelector('.quick-selection-menu-form');
+
+quickSelectionMenuForm.addEventListener('submit', event => {
+  event.preventDefault();
+
+  const selectedProduct = document.querySelector('.quick-selection-menu-product:checked')
+    .nextElementSibling.textContent;
+  const minBudget = document.querySelector('.quick-selection-menu-min-budget').value;
+  const maxBudget = document.querySelector('.quick-selection-menu-product-max-budget').value;
+
+  console.log({selectedProduct, minBudget, maxBudget});
+  if (!selectedProduct.length) {
+    return;
+  }
+
+  try {
+    async function fetchData() {
+      // Вміст GET-запиту потрібно буде змінити коли буде готовий ендпоінт 
+      // і відповідно до нього правильно передати параметри.
+      const response = await axios.get(
+        'https://jsonplaceholder.typicode.com/posts111111/1', 
+        {selectedProduct, minBudget, maxBudget}
+      );
+
+      // В разі успіху присвоюємо відповідь в змінну
+      filteredProductsList = response.data;
+    }
+  
+    fetchData();
+  } catch (error) {
+    console.error('Помилка GET-запиту:', error);
+  }
+});
+
+// Рендеремо відфільтрований список карточок які отримали з сервера, 
+// якщо карточок немає то наступний код не відрендериться 
+
+const quickSelectionMenuSlider = document.querySelector('.quick-selection-menu-slider');
+
+if (filteredProductsList.length) {
+  quickSelectionMenuSlider.insertAdjacentHTML('afterbegin', `
+    <section class="results-fast-search m-b-60">
+      <div class="results-fast-search-container">
+        <div class="title-box m-b-70">
+          <h4 class="h1-42-auto-bold">Результати</h4>
+          <div class="fast-search-results-info">
+            <p class="p-16-auto-medium">Знайдено</p>
+            <p class="p-16-auto-medium red">
+              <span class="fast-search-results-count"> ${filteredProductsList.length} </span>
+              товарів
+            </p>
+          </div>
+        </div>
+        <div class="slider-product-container">
+          <div class="slide_viewer">
+            <div class="slide_group">
+              <div class="slide-card-container">
+                ${filteredProductsList.map((product, i) => `
+                  <div class="card-xl">
+                    <div class="discount">
+                      <p class="p-16-auto-medium white">
+                        ${product.discount}%
+                      </p>
+                    </div>
+                    <div class="img-box">
+                      <img
+                        src="${product.img_url}"
+                        alt="name-of-this-flower"
+                      />
+                    </div>
+                    <div class="prod-desc">
+                      <div class="prod-title">
+                        <h3 class="h2-24-auto-bold">
+                          ${product.title}
+                        </h3>
+                      </div>
+                      <div class="prod-price">
+                        <div class="current-price">
+                          <p class="h2-24-auto-medium red">
+                            ${product.discount_price} ₴
+                          </p>
+                        </div>
+                        <div class="old-price">
+                          <p class="p-16-auto-medium grey">
+                            ${product.price} ₴
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-btn">
+                      <a
+                        class="button-main-text-icon p-16-auto-bold"
+                        href="#"
+                      >
+                        <span class="icon"></span>
+                        До кошика
+                      </a>
+                      <a
+                        class="p-16-auto-regular red"
+                        href="#"
+                        data-bs-toggle="modal"
+                        data-bs-target="#fastOrderModal"
+                        data-product-id="${i}"
+                      >
+                        Швидке замовлення
+                      </a>
+                    </div>
+                  </div>
+                  ${
+                    (i + 1) % 6 === 0 
+                      ? `</div>
+                          <div class="slide-card-container">
+                        `
+                      : ''
+                  }
+                `).join('')}
+              </div>
+            </div>
+          </div>
+          <div class="slide_buttons"></div>
+        </div>
+      </div>
+    </section>
+  `)
+}
+
+// MODAL-INDIVIDUAL-ORDER
+
+const individualOrderForm = document.querySelector('.individual-order-modal-form');
+const individualOrderName = document.querySelector('.individual-order-modal-name');
+const individualOrderTel = document.querySelector('.individual-order-modal-tel');
+const individualOrderButton = document.querySelector('.individual-order-modal-button');
+const individualOrderFileInput = document.querySelector('.individual-order-modal-file-input');
+const individualOrderFilePlaceholder = document.querySelector('.individual-order-modal-placeholder');
+const individualOrderFileCloseIcon = document.querySelector('.individual-order-modal-icon-close');
+const individualOrderFileLoadIcon = document.querySelector('.individual-order-modal-icon-load');
+
+individualOrderName.addEventListener('input', checkIndividualOrderInputs)
+individualOrderTel.addEventListener('input', checkIndividualOrderInputs)
+
+function checkIndividualOrderInputs() {
+  const nameValue = individualOrderName.value.trim();
+  const telValue = individualOrderTel.value;
+
+  individualOrderButton.classList.toggle('disabled-button', !(nameValue && telValue));
+  individualOrderButton.disabled = !(nameValue && telValue);
+}
+
+individualOrderForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+})
+
+// Коли користувач завантажить зображення в полі де завантажується файл 
+// з'явиться напис з назвою завантаженого файла і іконка "Х" при кліку 
+// на яку файл видалиться з завантажених і повернуться дефолтний вміст поля
+individualOrderFileInput.addEventListener('change', () => {
+  if (individualOrderFileInput.files.length > 0) {
+    individualOrderFileLoadIcon.style.display = 'none'; 
+    individualOrderFileCloseIcon.style.display = 'block'; 
+    individualOrderFilePlaceholder.classList.add('individual-order-modal-placeholder-loaded');
+    individualOrderFilePlaceholder.innerText = individualOrderFileInput.files[0].name;
+    individualOrderFileCloseIcon.addEventListener('click', deleteFile);
+  }
+});
+
+function deleteFile() {
+  individualOrderFileInput.value = ''; 
+  individualOrderFileLoadIcon.style.display = 'block';
+  individualOrderFileCloseIcon.style.display = 'none';
+  individualOrderFilePlaceholder.classList.remove('individual-order-modal-placeholder-loaded');
+  individualOrderFilePlaceholder.innerText = 'Фото прикладу';
+}
