@@ -900,10 +900,16 @@ const individualOrderForm = document.querySelector('.individual-order-modal-form
 const individualOrderName = document.querySelector('.individual-order-modal-name');
 const individualOrderTel = document.querySelector('.individual-order-modal-tel');
 const individualOrderButton = document.querySelector('.individual-order-modal-button');
+const individualOrderFileInput = document.querySelector('.individual-order-modal-file-input');
+const individualOrderFilePlaceholder = document.querySelector('.individual-order-modal-placeholder');
+const individualOrderFileCloseIcon = document.querySelector('.individual-order-modal-icon-close');
+const individualOrderFileLoadIcon = document.querySelector('.individual-order-modal-icon-load');
 
 individualOrderName.addEventListener('input', checkIndividualOrderInputs)
 individualOrderTel.addEventListener('input', checkIndividualOrderInputs)
 
+
+// Якщо введено ім'я і телефон користувачем - кнопка "Залишити заявку" стане активною
 function checkIndividualOrderInputs() {
   if (individualOrderName.value.trim() && individualOrderTel.value) {
     individualOrderButton.classList.remove('disabled-button');
@@ -917,3 +923,24 @@ function checkIndividualOrderInputs() {
 individualOrderForm.addEventListener('submit', (event) => {
   event.preventDefault();
 })
+
+// Коли користувач завантажить зображення в полі де завантажується файл 
+// з'явиться напис з назвою завантаженого файла і іконка "Х" при кліку 
+// на яку файл видалиться з завантажених і повернуться дефолтний вміст поля
+individualOrderFileInput.addEventListener('change', () => {
+  if (individualOrderFileInput.files.length > 0) {
+    individualOrderFileLoadIcon.style.display = 'none'; 
+    individualOrderFileCloseIcon.style.display = 'block'; 
+    individualOrderFilePlaceholder.classList.add('individual-order-modal-placeholder-loaded');
+    individualOrderFilePlaceholder.innerText = individualOrderFileInput.files[0].name;
+    individualOrderFileCloseIcon.addEventListener('click', deleteFile);
+  }
+});
+
+function deleteFile() {
+  individualOrderFileInput.value = ''; 
+  individualOrderFileLoadIcon.style.display = 'block';
+  individualOrderFileCloseIcon.style.display = 'none';
+  individualOrderFilePlaceholder.classList.remove('individual-order-modal-placeholder-loaded');
+  individualOrderFilePlaceholder.innerText = 'Фото прикладу';
+}

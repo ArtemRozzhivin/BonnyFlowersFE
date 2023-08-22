@@ -3915,12 +3915,15 @@ footer {
 
 /* MODAL-INDIVIDUAL-ORDER */
 
+.individual-order-modal-file-container {
+  width: 100%;
+}
+
 .individual-order-modal-label {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
-  width: 400px;
 }
 
 .individual-order-modal-name {
@@ -3947,5 +3950,12 @@ footer {
   color: var(--gray, #CCC);
 }
 
-/* @media screen and (max-width: 768px) { */
-/* } */
+.individual-order-modal-placeholder-loaded {
+  font-weight: 500;
+  color: var(--red, #8E1533);
+}
+
+.individual-order-modal-icon-close {
+  display: none;
+  padding: 0;
+}
