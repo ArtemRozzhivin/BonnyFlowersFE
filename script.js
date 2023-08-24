@@ -1,3 +1,5 @@
+'use strict'
+
 // SCROLL UP
 
 
@@ -126,69 +128,161 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // INPUT-TELL
 
-document.addEventListener('DOMContentLoaded', function () {
-  'use strict';
-  const input = document.querySelectorAll('input[name=leyka_donor_phone]');
-  const itiTel = document.querySelector('.iti.iti--allow-dropdown.iti--separate-dial-code');
-  const submitButton = document.querySelector('.button-secondary-text');
-  let iti;
+// document.addEventListener('DOMContentLoaded', function () {
+//   'use strict';
+//   const input = document.querySelectorAll('input[name=leyka_donor_phone]');
+//   const itiTel = document.querySelector('.iti.iti--allow-dropdown.iti--separate-dial-code');
+//   const submitButton = document.querySelector('.button-secondary-text');
+//   let iti;
 
-  if (itiTel) {
-    iti.destroy();
-    // Get the current number in the given format
-  }
+//   if (itiTel) {
+//     iti.destroy();
+//     // Get the current number in the given format
+//   }
+
+//   for (let i = 0; i < input.length; i++) {
+//     iti = intlTelInput(input[i], {
+//       autoHideDialCode: false,
+//       autoPlaceholder: 'aggressive',
+//       initialCountry: 'auto',
+//       separateDialCode: true,
+//       preferredCountries: ['ua', 'pl'],
+//       customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
+//         return '' + selectedCountryPlaceholder.replace(/[0-9]/g, 'X');
+//       },
+//       utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.0/js/utils.js'
+//     });
+
+//     input[i].addEventListener('focus', function (e) {
+//       const pl = this.getAttribute('placeholder') + '';
+//       const res = pl.replace(/X/g, '9');
+
+//       if (res != 'undefined') {
+//         $(this).inputmask(res, {
+//           placeholder: 'X',
+//           // clearMaskOnLostFocus: true
+//         });
+//       }
+//     });
+
+   
+
+//     // input[i].addEventListener('focusout', function (e) {
+//     //   const intlNumber = iti.getNumber();
+
+//     //   // Подсчет количества символов во вводимом значении поля без учета пробелов
+//     //   const characterCount = intlNumber.replace(/\s/g, '').length;
+//     //   console.log('Количество символов без пробелов: ' + characterCount);
+
+//     //   // Проверяем количество символов и изменяем класс кнопки
+//     //   if (characterCount < 10) {
+//     //     submitButton.classList.remove('button-main-text');
+//     //     submitButton.classList.add('button-secondary-text');
+//     //     submitButton.disabled = true; // Запрещаем нажатие кнопки
+//     //   } else {
+//     //     submitButton.classList.remove('button-secondary-text');
+//     //     submitButton.classList.add('button-main-text');
+//     //     submitButton.disabled = false; // Разрешаем нажатие кнопки
+//     //   }
+//     // });
+
+//     input[i].addEventListener('blur', function (e) {
+//       const intlNumber = iti.getNumber();
+//       input[i].dataset.telValue = intlNumber
+//       console.log(intlNumber);
+//     });
+
+//     //   input[i].addEventListener('blur', function() {
+//     //   const originalPlaceholder = this.getAttribute('data-original-placeholder');
+//     //   if (!this.value) {
+//     //     this.value = originalPlaceholder;
+//     //   }
+//     // });
+//   }
+// });
+
+// Make sure to place this snippet in the footer or at least after
+// the HTML input we're targeting.
+
+$(document).ready(function() {
+  const phoneInputID = "input[name=leyka_donor_phone]";
+  const input = document.querySelectorAll(phoneInputID);
 
   for (let i = 0; i < input.length; i++) {
-    iti = intlTelInput(input[i], {
-      autoHideDialCode: false,
-      autoPlaceholder: 'aggressive',
-      initialCountry: 'auto',
-      separateDialCode: true,
+    const iti = window.intlTelInput(input[i], {
+      // allowDropdown: false,
+      // autoHideDialCode: false,
+      // autoPlaceholder: "off",
+      // dropdownContainer: document.body,
+      // excludeCountries: ["us"],
+      formatOnDisplay: true,
+      // geoIpLookup: function(callback) {
+      //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+      //     var countryCode = (resp && resp.country) ? resp.country : "";
+      //     callback(countryCode);
+      //   });
+      // },
+      hiddenInput: "full_number",
+      // initialCountry: "auto",
+      // localizedCountries: { 'de': 'Deutschland' },
+      // nationalMode: false,
+      // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+      // placeholderNumberType: "MOBILE",
       preferredCountries: ['ua', 'pl'],
-      customPlaceholder: function (selectedCountryPlaceholder, selectedCountryData) {
-        return '' + selectedCountryPlaceholder.replace(/[0-9]/g, 'X');
-      },
-      utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.0/js/utils.js'
+      // separateDialCode: true,
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js"
     });
 
-    input[i].addEventListener('focus', function (e) {
-      const pl = this.getAttribute('placeholder') + '';
-      const res = pl.replace(/X/g, '9');
 
-      if (res != 'undefined') {
-        $(this).inputmask(res, {
-          placeholder: 'X',
-          clearMaskOnLostFocus: true
-        });
+    $(phoneInputID).on("countrychange", function(event) {
+
+      // Get the selected country data to know which country is selected.
+      const selectedCountryData = iti.getSelectedCountryData();
+
+      input[i].dataset.selectedCountry = selectedCountryData.dialCode;
+
+      // Get an example number for the selected country to use as placeholder.
+      const newPlaceholder = intlTelInputUtils.getExampleNumber(selectedCountryData.iso2, true, intlTelInputUtils.numberFormat.INTERNATIONAL),
+
+      // Reset the phone number input.
+      // iti.setNumber("");
+      
+      // Convert placeholder as exploitable mask by replacing all 1-9 numbers with 0s
+      mask = newPlaceholder.replace(/[1-9]/g, "0");
+      
+      // Apply the new mask for the input
+      $(this).mask(mask);
+    });
+
+      // Слухаємо подію input на полі вводу
+    input[i].addEventListener('input', function() {
+    //   var enteredValue = this.value;
+
+      // Отримуємо значення, яке було введено у полі вводу
+      var phoneNumber = iti.getNumber();
+    
+    //   // Перевірка на валідність номера
+    //   var isValid = iti.isValidNumber();
+
+      if (iti.isValidNumber()) {
+        input[i].dataset.telNumber = phoneNumber;
       }
+    
+    //   // Обробка даних
+    //   // console.log("Введений номер:", phoneNumber);
+    //   // console.log("Чи валідний номер:", isValid);
     });
+    
 
-    input[i].addEventListener('focusout', function (e) {
-      const intlNumber = iti.getNumber();
+    // When the plugin loads for the first time, we have to trigger the "countrychange" event manually, 
+    // but after making sure that the plugin is fully loaded by associating handler to the promise of the 
+    // plugin instance.
 
-      // Подсчет количества символов во вводимом значении поля без учета пробелов
-      const characterCount = intlNumber.replace(/\s/g, '').length;
-      console.log('Количество символов без пробелов: ' + characterCount);
-
-      // Проверяем количество символов и изменяем класс кнопки
-      if (characterCount < 10) {
-        submitButton.classList.remove('button-main-text');
-        submitButton.classList.add('button-secondary-text');
-        submitButton.disabled = true; // Запрещаем нажатие кнопки
-      } else {
-        submitButton.classList.remove('button-secondary-text');
-        submitButton.classList.add('button-main-text');
-        submitButton.disabled = false; // Разрешаем нажатие кнопки
-      }
-    });
-
-    input[i].addEventListener('focusout', function (e) {
-      const intlNumber = iti.getNumber();
-      console.log(intlNumber);
+    iti.promise.then(function() {
+      $(phoneInputID).trigger("countrychange");
     });
   }
 });
-
 
 
 // SLIDER-header
@@ -908,12 +1002,19 @@ const individualOrderFileLoadIcon = document.querySelector('.individual-order-mo
 individualOrderName.addEventListener('input', checkIndividualOrderInputs)
 individualOrderTel.addEventListener('input', checkIndividualOrderInputs)
 
+
+// Якщо введено ім'я і телефон користувачем - кнопка "Залишити заявку" стане активною
 function checkIndividualOrderInputs() {
   const nameValue = individualOrderName.value.trim();
   const telValue = individualOrderTel.value;
 
-  individualOrderButton.classList.toggle('disabled-button', !(nameValue && telValue));
-  individualOrderButton.disabled = !(nameValue && telValue);
+  console.log('nameValue', nameValue);
+  console.log('telValue', telValue);
+  console.log('selectedCountry', individualOrderTel.dataset.selectedCountry);
+  console.log('telNumber', individualOrderTel.dataset.telNumber);
+
+  individualOrderButton.classList.toggle('disabled-button', !(nameValue && telValue.length > 6));
+  individualOrderButton.disabled = !(nameValue && telValue.length > 6);
 }
 
 individualOrderForm.addEventListener('submit', (event) => {
