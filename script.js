@@ -1,4 +1,4 @@
-'use strict'
+// 'use strict'
 
 // SCROLL UP
 
@@ -960,10 +960,10 @@ if (filteredProductsList.length) {
                         До кошика
                       </a>
                       <a
-                        class="p-16-auto-regular red"
+                        class="p-16-auto-regular red quick-order-link"
                         href="#"
                         data-bs-toggle="modal"
-                        data-bs-target="#fastOrderModal"
+                        data-bs-target="#quickOrderModal"
                         data-product-id="${i}"
                       >
                         Швидке замовлення
@@ -1093,101 +1093,149 @@ $(document).ready(function() {
   }
 );
 
+// MODAL-QUICK-ORDER
+$(document).ready(function() {
+  const phoneInputClass = ".quick-order-modal-tel";
+  const quickOrderForm = document.querySelector('.quick-order-modal-form');
+  const quickOrderName = document.querySelector('.quick-order-modal-name');
+  const quickOrderTel = document.querySelector(phoneInputClass);
+  const quickOrderButton = document.querySelector('.quick-order-modal-button');
+
+    const iti = window.intlTelInput(quickOrderTel, {
+      formatOnDisplay: true,
+      hiddenInput: "full_number",
+      preferredCountries: ['ua', 'pl'],
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js"
+    });
 
 
+    $(phoneInputClass).on("countrychange", function(event) {
 
+      // Отримання інформації про вибрану країну, щоб знати яку країну обрано
+      const selectedCountryData = iti.getSelectedCountryData();
 
+      // Отримання номера зразка для вибраної країни, щоб використати його як плейсхолдер
+      const newPlaceholder = intlTelInputUtils.getExampleNumber(selectedCountryData.iso2, true, intlTelInputUtils.numberFormat.INTERNATIONAL);
 
-// $(document).ready(function() {
-//   const phoneInputClass = ".individual-order-modal-tel";
-//   const input = document.querySelector(phoneInputClass);
-
-//     const iti = window.intlTelInput(input, {
-//       formatOnDisplay: true,
-//       hiddenInput: "full_number",
-//       preferredCountries: ['ua', 'pl'],
-//       utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js"
-//     });
-
-
-//     $(phoneInputClass).on("countrychange", function(event) {
-
-//       // Get the selected country data to know which country is selected.
-//       const selectedCountryData = iti.getSelectedCountryData();
-
-//       // Get an example number for the selected country to use as placeholder.
-//       const newPlaceholder = intlTelInputUtils.getExampleNumber(selectedCountryData.iso2, true, intlTelInputUtils.numberFormat.INTERNATIONAL);
-
-//       // Reset the phone number input.
-//       iti.setNumber("");
+      // Обнулення телефонного номеру
+      iti.setNumber("");
       
-//       // Convert placeholder as exploitable mask by replacing all 1-9 numbers with 0s
-//       const mask = newPlaceholder.replace(/[1-9]/g, "0");
+      // Маска заповнювач, яка замінить усі чила на 0
+      const mask = newPlaceholder.replace(/[1-9]/g, "0");
       
-//       // Apply the new mask for the input
-//       $(this).mask(mask);
-//     });
+      // Накладання маски на input
+      $(this).mask(mask);
+    });
 
-//     individualOrderName.addEventListener('input', checkIndividualOrderInputs)
-//     individualOrderTel.addEventListener('input', checkIndividualOrderInputs)
+    // Слухачі подій на полях для вводу номеру телефону і ім'я
+    // потрібні для того щоб зробити кнопку активною
+    quickOrderName.addEventListener('input', checkQuickOrderInputs)
+    quickOrderTel.addEventListener('input', checkQuickOrderInputs)
 
 
-//     // // Якщо введено ім'я і телефон користувачем - кнопка "Залишити заявку" стане активною
-//     function checkIndividualOrderInputs() {
-//       const nameValue = individualOrderName.value.trim();
+    // // Якщо введено ім'я і валідний номер телефону - кнопка "Залишити заявку" стане активною
+    function checkQuickOrderInputs() {
+      const nameValue = quickOrderName.value.trim();
 
-//       individualOrderButton.classList.toggle('disabled-button', !(nameValue && iti.isValidNumber()));
-//       individualOrderButton.disabled = !(nameValue && iti.isValidNumber());
-//     }
+      quickOrderButton.classList.toggle('disabled-button', !(nameValue && iti.isValidNumber()));
+      quickOrderButton.disabled = !(nameValue && iti.isValidNumber());
+    }
 
-//     individualOrderForm.addEventListener('submit', (event) => {
-//       event.preventDefault();
-
-//       try {
-//         async function fetchData() {
-//           // Вміст POST-запиту потрібно буде змінити коли буде готовий ендпоінт 
-//           // і відповідно до нього правильно передати параметри.
-//           const response = await axios.post(
-//             'https://jsonplaceholder.typicode.com/posts111111/1', 
-//             {selectedProduct, minBudget, maxBudget}
-//           );
+    // Обробник події 'submit' при натисканні кнопки "Залишити заявку"
+    quickOrderForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
     
-//           // В разі успіху присвоюємо відповідь в змінну
-//           filteredProductsList = response.data;
-//         }
+      const nameValue = quickOrderName.value.trim();
+      const telValue = iti.getNumber();
+    
+      try {
+        const response = await axios.post(
+          'https://jsonplaceholder.typicode.com/posts111111/1', // потрібно буде змінити коли буде готовий ендпоінт 
+          { nameValue, telValue }
+        );
+    
+        console.log('Успішний POST-запит:', response.data);
+      } catch (error) {
+        console.error('Помилка POST-запиту:', error);
+      }
+    });
+
+    // Коли плагін завантажується вперше потрібно тригернути "countrychange" подію вручну
+    iti.promise.then(function() {
+      $(phoneInputClass).trigger("countrychange");
+    });
+  }
+);
+
+// Додаємо інформацію з вибраної карточки в modal quick order
+document.addEventListener('DOMContentLoaded', function () {
+  const quickOrderButton = document.querySelector('.results-fast-search');
+  const quickOrderTitle = document.querySelector('.quick-order-modal-title');
+  let currentCard = null;
+
+    quickOrderButton.addEventListener('click', (event) => {
+      const card = event.target.closest('.quick-order-link');
+
+      if (!card || !quickOrderButton.contains(card)) {
+        return;
+      }
+
+      const productId = card.dataset.productId;
+      const selectedProduct = filteredProductsList[productId];
       
-//         fetchData();
-//       } catch (error) {
-//         console.error('Помилка GET-запиту:', error);
-//       }
-//     })
+      // Створюємо новий елемент для вмісту карточки
+      const newCardElement = createCardElement(selectedProduct);
 
-//       // Слухаємо подію input на полі вводу
-//     // input.addEventListener('input', function() {
-//     // //   var enteredValue = this.value;
+      // Замінюємо поточний елемент новим
+      if (currentCard) {
+        replaceElement(currentCard, newCardElement);
+      } else {
+        insertAfter(quickOrderTitle, newCardElement);
+      }
+      currentCard = newCardElement; // Оновлюємо посилання на поточний елемент
+    });
 
-//     //   // Отримуємо значення, яке було введено у полі вводу
-//     //   var phoneNumber = iti.getNumber();
-    
-//     // //   // Перевірка на валідність номера
-//     // //   var isValid = iti.isValidNumber();
+    // створює нову карточку на основі посилання на якому відбувся клік
+  function createCardElement(product) {
+    const cardElement = document.createElement('div');
+    cardElement.classList.add('card-s');
+    cardElement.innerHTML = `
+      <div class="card-s">
+        <div class="img-box">
+          <img src="./img/flower-img.png" alt="name-of-this-flower" />
+        </div>
+        <div class="prod-desc">
+          <div class="card-top">
+            <div class="prod-title">
+              <h3 class="p-16-auto-bold">${product.title}</h3>
+              <p class="p-16-auto-regular">Артикул: 2222</p>
+            </div>
+          </div>
+          <div class="card-bottom">
+            <div class="prod-price">
+              <div class="current-price">
+                <p class="p-16-auto-regular">Ціна:</p>
+                <p class="p-16-auto-bold red">${product.discount_price} ₴</p>
+              </div>
+              <div class="old-price">
+                <p class="p-16-auto-medium grey">${product.price} ₴</p>
+              </div>
+            </div>
+            <div class="product-count" id="counter">
+              <p class="p-14-auto-medium">1 шт.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    return cardElement;
+  }
 
-//     //   if (iti.isValidNumber()) {
-//     //     input.dataset.telNumber = phoneNumber;
-//     //   }
-    
-//     // //   // Обробка даних
-//     // //   // console.log("Введений номер:", phoneNumber);
-//     // //   // console.log("Чи валідний номер:", isValid);
-//     // });
-    
+  function replaceElement(oldElement, newElement) {
+    oldElement.parentNode.replaceChild(newElement, oldElement);
+  }
 
-//     // When the plugin loads for the first time, we have to trigger the "countrychange" event manually, 
-//     // but after making sure that the plugin is fully loaded by associating handler to the promise of the 
-//     // plugin instance.
-
-//     iti.promise.then(function() {
-//       $(phoneInputClass).trigger("countrychange");
-//     });
-//   }
-// );
+  function insertAfter(referenceElement, newElement) {
+    referenceElement.parentNode.insertBefore(newElement, referenceElement.nextSibling);
+  }
+});

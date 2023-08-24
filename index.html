@@ -2475,10 +2475,6 @@
             </div>
         </div>
 
-        <!-- <<<<<<<<<<<<<<<<<<<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-        <!-- <<<<<<<<<<<<<<<<<<<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-        <!-- <<<<<<<<<<<<<<<<<<<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-        <!-- <<<<<<<<<<<<<<<<<<<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
         <!-- MODAL-INDIVIDUAL-ORDER -->
         <div
             class="modal fade individualOrderModal"
@@ -2621,13 +2617,17 @@
             </div>
         </div>
         
+                <!-- <<<<<<<<<<<<<<<<<<<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
         <!-- <<<<<<<<<<<<<<<<<<<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-        <!-- MODAL-FAST-ORDER -->
-        <!-- <div
-            class="modal fade fastOrderModal"
-            id="fastOrderModal"
+        <!-- <<<<<<<<<<<<<<<<<<<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+        <!-- <<<<<<<<<<<<<<<<<<<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+        <!-- <<<<<<<<<<<<<<<<<<<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+        <!-- MODAL-QUICK-ORDER -->
+        <div
+            class="modal fade quickOrderModal"
+            id="quickOrderModal"
             tabindex="-1"
-            aria-labelledby="fastOrderModal"
+            aria-labelledby="quickOrderModal"
             aria-hidden="true"
         >
             <div class="modal-dialog">
@@ -2643,32 +2643,34 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h5 class="h2-24-auto-bold" id="fastOrderModalLabel">
+                        <h5 class="h2-24-auto-bold quick-order-modal-title" id="quickOrderModalLabel">
                             Швидке Замовлення
                         </h5>
                         <div class="input-tell-container">
-                            <form action="#" method="get">
+                            <form action="#" method="post" class="quick-order-modal-form">
                                 <div class="content">
                                     <input
                                         type="text"
                                         id="text"
-                                        class="p-16-auto-regular darck-gray input-text"
+                                        class="p-16-auto-regular darck-gray input-text quick-order-modal-name"
                                         placeholder="Ваше ім’я"
                                     />
                                     <div class="form-group">
-                                      <input
-                                          class="form-control tel"
-                                          type="tel"
-                                          name="leyka_donor_phone"
-                                          inputmode="tel"
-                                          value=""
-                                      />
-                                  </div>
+                                        <input
+                                            class="form-control tel quick-order-modal-tel"
+                                            type="tel"
+                                            name="leyka_donor_phone"
+                                            inputmode="tel"
+                                            value=""
+                                            required
+                                        />
+                                    </div>
                                 </div>
                                 <button
-                                    class="button-main-text p-16-auto-bold"
+                                    class="button-main-text p-16-auto-bold disabled-button quick-order-modal-button"
                                     type="subimit"
                                     value="Отправить"
+                                    disabled
                                 >
                                     Відправити
                                 </button>
@@ -2677,7 +2679,12 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
+
+                <!-- <<<<<<<<<<<<<<<<<<<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+        <!-- <<<<<<<<<<<<<<<<<<<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+        <!-- <<<<<<<<<<<<<<<<<<<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+        <!-- <<<<<<<<<<<<<<<<<<<!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
         <!-- MODAL-MOBILE-SEARCH -->
         <div
