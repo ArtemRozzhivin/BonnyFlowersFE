@@ -204,85 +204,85 @@ document.addEventListener('DOMContentLoaded', function () {
 // Make sure to place this snippet in the footer or at least after
 // the HTML input we're targeting.
 
-$(document).ready(function() {
-  const phoneInputID = "input[name=leyka_donor_phone]";
-  const input = document.querySelectorAll(phoneInputID);
+// $(document).ready(function() {
+//   const phoneInputID = "input[name=leyka_donor_phone]";
+//   const input = document.querySelectorAll(phoneInputID);
 
-  for (let i = 0; i < input.length; i++) {
-    const iti = window.intlTelInput(input[i], {
-      // allowDropdown: false,
-      // autoHideDialCode: false,
-      // autoPlaceholder: "off",
-      // dropdownContainer: document.body,
-      // excludeCountries: ["us"],
-      formatOnDisplay: true,
-      // geoIpLookup: function(callback) {
-      //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
-      //     var countryCode = (resp && resp.country) ? resp.country : "";
-      //     callback(countryCode);
-      //   });
-      // },
-      hiddenInput: "full_number",
-      // initialCountry: "auto",
-      // localizedCountries: { 'de': 'Deutschland' },
-      // nationalMode: false,
-      // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-      // placeholderNumberType: "MOBILE",
-      preferredCountries: ['ua', 'pl'],
-      // separateDialCode: true,
-      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js"
-    });
+//   for (let i = 0; i < input.length; i++) {
+//     const iti = window.intlTelInput(input[i], {
+//       // allowDropdown: false,
+//       // autoHideDialCode: false,
+//       // autoPlaceholder: "off",
+//       // dropdownContainer: document.body,
+//       // excludeCountries: ["us"],
+//       formatOnDisplay: true,
+//       // geoIpLookup: function(callback) {
+//       //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+//       //     var countryCode = (resp && resp.country) ? resp.country : "";
+//       //     callback(countryCode);
+//       //   });
+//       // },
+//       hiddenInput: "full_number",
+//       // initialCountry: "auto",
+//       // localizedCountries: { 'de': 'Deutschland' },
+//       // nationalMode: false,
+//       // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+//       // placeholderNumberType: "MOBILE",
+//       preferredCountries: ['ua', 'pl'],
+//       // separateDialCode: true,
+//       utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js"
+//     });
 
 
-    $(phoneInputID).on("countrychange", function(event) {
+//     $(phoneInputID).on("countrychange", function(event) {
 
-      // Get the selected country data to know which country is selected.
-      const selectedCountryData = iti.getSelectedCountryData();
+//       // Get the selected country data to know which country is selected.
+//       const selectedCountryData = iti.getSelectedCountryData();
 
-      input[i].dataset.selectedCountry = selectedCountryData.dialCode;
+//       input[i].dataset.selectedCountry = selectedCountryData.dialCode;
 
-      // Get an example number for the selected country to use as placeholder.
-      const newPlaceholder = intlTelInputUtils.getExampleNumber(selectedCountryData.iso2, true, intlTelInputUtils.numberFormat.INTERNATIONAL),
+//       // Get an example number for the selected country to use as placeholder.
+//       const newPlaceholder = intlTelInputUtils.getExampleNumber(selectedCountryData.iso2, true, intlTelInputUtils.numberFormat.INTERNATIONAL),
 
-      // Reset the phone number input.
-      // iti.setNumber("");
+//       // Reset the phone number input.
+//       // iti.setNumber("");
       
-      // Convert placeholder as exploitable mask by replacing all 1-9 numbers with 0s
-      mask = newPlaceholder.replace(/[1-9]/g, "0");
+//       // Convert placeholder as exploitable mask by replacing all 1-9 numbers with 0s
+//       mask = newPlaceholder.replace(/[1-9]/g, "0");
       
-      // Apply the new mask for the input
-      $(this).mask(mask);
-    });
+//       // Apply the new mask for the input
+//       $(this).mask(mask);
+//     });
 
-      // Слухаємо подію input на полі вводу
-    input[i].addEventListener('input', function() {
-    //   var enteredValue = this.value;
+//       // Слухаємо подію input на полі вводу
+//     input[i].addEventListener('input', function() {
+//     //   var enteredValue = this.value;
 
-      // Отримуємо значення, яке було введено у полі вводу
-      var phoneNumber = iti.getNumber();
+//       // Отримуємо значення, яке було введено у полі вводу
+//       var phoneNumber = iti.getNumber();
     
-    //   // Перевірка на валідність номера
-    //   var isValid = iti.isValidNumber();
+//     //   // Перевірка на валідність номера
+//     //   var isValid = iti.isValidNumber();
 
-      if (iti.isValidNumber()) {
-        input[i].dataset.telNumber = phoneNumber;
-      }
+//       if (iti.isValidNumber()) {
+//         input[i].dataset.telNumber = phoneNumber;
+//       }
     
-    //   // Обробка даних
-    //   // console.log("Введений номер:", phoneNumber);
-    //   // console.log("Чи валідний номер:", isValid);
-    });
+//     //   // Обробка даних
+//     //   // console.log("Введений номер:", phoneNumber);
+//     //   // console.log("Чи валідний номер:", isValid);
+//     });
     
 
-    // When the plugin loads for the first time, we have to trigger the "countrychange" event manually, 
-    // but after making sure that the plugin is fully loaded by associating handler to the promise of the 
-    // plugin instance.
+//     // When the plugin loads for the first time, we have to trigger the "countrychange" event manually, 
+//     // but after making sure that the plugin is fully loaded by associating handler to the promise of the 
+//     // plugin instance.
 
-    iti.promise.then(function() {
-      $(phoneInputID).trigger("countrychange");
-    });
-  }
-});
+//     iti.promise.then(function() {
+//       $(phoneInputID).trigger("countrychange");
+//     });
+//   }
+// });
 
 
 // SLIDER-header
@@ -989,55 +989,205 @@ if (filteredProductsList.length) {
 }
 
 // MODAL-INDIVIDUAL-ORDER
+$(document).ready(function() {
+  const phoneInputClass = ".individual-order-modal-tel";
+  const individualOrderForm = document.querySelector('.individual-order-modal-form');
+  const individualOrderName = document.querySelector('.individual-order-modal-name');
+  const individualOrderTel = document.querySelector(phoneInputClass);
+  const individualOrderMinBudget = document.querySelector('.individual-order-modal-min-budget');
+  const individualOrderMaxBudget = document.querySelector('.individual-order-modal-max-budget');
+  const individualOrderButton = document.querySelector('.individual-order-modal-button');
+  const individualOrderFileInput = document.querySelector('.individual-order-modal-file-input');
+  const individualOrderFilePlaceholder = document.querySelector('.individual-order-modal-placeholder');
+  const individualOrderFileCloseIcon = document.querySelector('.individual-order-modal-icon-close');
+  const individualOrderFileLoadIcon = document.querySelector('.individual-order-modal-icon-load');
 
-const individualOrderForm = document.querySelector('.individual-order-modal-form');
-const individualOrderName = document.querySelector('.individual-order-modal-name');
-const individualOrderTel = document.querySelector('.individual-order-modal-tel');
-const individualOrderButton = document.querySelector('.individual-order-modal-button');
-const individualOrderFileInput = document.querySelector('.individual-order-modal-file-input');
-const individualOrderFilePlaceholder = document.querySelector('.individual-order-modal-placeholder');
-const individualOrderFileCloseIcon = document.querySelector('.individual-order-modal-icon-close');
-const individualOrderFileLoadIcon = document.querySelector('.individual-order-modal-icon-load');
-
-individualOrderName.addEventListener('input', checkIndividualOrderInputs)
-individualOrderTel.addEventListener('input', checkIndividualOrderInputs)
+    const iti = window.intlTelInput(individualOrderTel, {
+      formatOnDisplay: true,
+      hiddenInput: "full_number",
+      preferredCountries: ['ua', 'pl'],
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js"
+    });
 
 
-// Якщо введено ім'я і телефон користувачем - кнопка "Залишити заявку" стане активною
-function checkIndividualOrderInputs() {
-  const nameValue = individualOrderName.value.trim();
-  const telValue = individualOrderTel.value;
+    $(phoneInputClass).on("countrychange", function(event) {
 
-  console.log('nameValue', nameValue);
-  console.log('telValue', telValue);
-  console.log('selectedCountry', individualOrderTel.dataset.selectedCountry);
-  console.log('telNumber', individualOrderTel.dataset.telNumber);
+      // Отримання інформації про вибрану країну, щоб знати яку країну обрано
+      const selectedCountryData = iti.getSelectedCountryData();
 
-  individualOrderButton.classList.toggle('disabled-button', !(nameValue && telValue.length > 6));
-  individualOrderButton.disabled = !(nameValue && telValue.length > 6);
-}
+      // Отримання номера зразка для вибраної країни, щоб використати його як плейсхолдер
+      const newPlaceholder = intlTelInputUtils.getExampleNumber(selectedCountryData.iso2, true, intlTelInputUtils.numberFormat.INTERNATIONAL);
 
-individualOrderForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-})
+      // Обнулення телефонного номеру
+      iti.setNumber("");
+      
+      // Маска заповнювач, яка замінить усі чила на 0
+      const mask = newPlaceholder.replace(/[1-9]/g, "0");
+      
+      // Накладання маски на input
+      $(this).mask(mask);
+    });
 
-// Коли користувач завантажить зображення в полі де завантажується файл 
-// з'явиться напис з назвою завантаженого файла і іконка "Х" при кліку 
-// на яку файл видалиться з завантажених і повернуться дефолтний вміст поля
-individualOrderFileInput.addEventListener('change', () => {
-  if (individualOrderFileInput.files.length > 0) {
-    individualOrderFileLoadIcon.style.display = 'none'; 
-    individualOrderFileCloseIcon.style.display = 'block'; 
-    individualOrderFilePlaceholder.classList.add('individual-order-modal-placeholder-loaded');
-    individualOrderFilePlaceholder.innerText = individualOrderFileInput.files[0].name;
-    individualOrderFileCloseIcon.addEventListener('click', deleteFile);
+    // Слухачі подій на полях для вводу номеру телефону і ім'я
+    // потрібні для того щоб зробити кнопку активною
+    individualOrderName.addEventListener('input', checkIndividualOrderInputs)
+    individualOrderTel.addEventListener('input', checkIndividualOrderInputs)
+
+
+    // // Якщо введено ім'я і валідний номер телефону - кнопка "Залишити заявку" стане активною
+    function checkIndividualOrderInputs() {
+      const nameValue = individualOrderName.value.trim();
+
+      individualOrderButton.classList.toggle('disabled-button', !(nameValue && iti.isValidNumber()));
+      individualOrderButton.disabled = !(nameValue && iti.isValidNumber());
+    }
+
+    // Коли користувач завантажить зображення в полі де завантажується файл 
+    // з'явиться напис з назвою завантаженого файла і іконка "Х" при кліку 
+    // на яку файл видалиться з завантажених і повернуться дефолтний вміст поля
+    individualOrderFileInput.addEventListener('change', () => {
+      if (individualOrderFileInput.files.length > 0) {
+        individualOrderFileLoadIcon.style.display = 'none'; 
+        individualOrderFileCloseIcon.style.display = 'block'; 
+        individualOrderFilePlaceholder.classList.add('individual-order-modal-placeholder-loaded');
+        individualOrderFilePlaceholder.innerText = individualOrderFileInput.files[0].name;
+        individualOrderFileCloseIcon.addEventListener('click', deleteFile);
+      }
+    });
+
+    // Функція для видалення завантаженого фото
+    function deleteFile() {
+      individualOrderFileInput.value = ''; 
+      individualOrderFileLoadIcon.style.display = 'block';
+      individualOrderFileCloseIcon.style.display = 'none';
+      individualOrderFilePlaceholder.classList.remove('individual-order-modal-placeholder-loaded');
+      individualOrderFilePlaceholder.innerText = 'Фото прикладу';
+    }
+
+    // Обробник події 'submit' при натисканні кнопки "Залишити заявку"
+    individualOrderForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+    
+      const nameValue = individualOrderName.value.trim();
+      const telValue = iti.getNumber();
+      const minBudget = individualOrderMinBudget.value;
+      const maxBudget = individualOrderMaxBudget.value;
+      const file = individualOrderFileInput.files[0];
+    
+      try {
+        const response = await axios.post(
+          'https://jsonplaceholder.typicode.com/posts111111/1', // потрібно буде змінити коли буде готовий ендпоінт 
+          { nameValue, telValue, minBudget, maxBudget, file }
+        );
+    
+        console.log('Успішний POST-запит:', response.data);
+      } catch (error) {
+        console.error('Помилка POST-запиту:', error);
+      }
+    });
+
+    // Коли плагін завантажується вперше потрібно тригернути "countrychange" подію вручну
+    iti.promise.then(function() {
+      $(phoneInputClass).trigger("countrychange");
+    });
   }
-});
+);
 
-function deleteFile() {
-  individualOrderFileInput.value = ''; 
-  individualOrderFileLoadIcon.style.display = 'block';
-  individualOrderFileCloseIcon.style.display = 'none';
-  individualOrderFilePlaceholder.classList.remove('individual-order-modal-placeholder-loaded');
-  individualOrderFilePlaceholder.innerText = 'Фото прикладу';
-}
+
+
+
+
+
+// $(document).ready(function() {
+//   const phoneInputClass = ".individual-order-modal-tel";
+//   const input = document.querySelector(phoneInputClass);
+
+//     const iti = window.intlTelInput(input, {
+//       formatOnDisplay: true,
+//       hiddenInput: "full_number",
+//       preferredCountries: ['ua', 'pl'],
+//       utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js"
+//     });
+
+
+//     $(phoneInputClass).on("countrychange", function(event) {
+
+//       // Get the selected country data to know which country is selected.
+//       const selectedCountryData = iti.getSelectedCountryData();
+
+//       // Get an example number for the selected country to use as placeholder.
+//       const newPlaceholder = intlTelInputUtils.getExampleNumber(selectedCountryData.iso2, true, intlTelInputUtils.numberFormat.INTERNATIONAL);
+
+//       // Reset the phone number input.
+//       iti.setNumber("");
+      
+//       // Convert placeholder as exploitable mask by replacing all 1-9 numbers with 0s
+//       const mask = newPlaceholder.replace(/[1-9]/g, "0");
+      
+//       // Apply the new mask for the input
+//       $(this).mask(mask);
+//     });
+
+//     individualOrderName.addEventListener('input', checkIndividualOrderInputs)
+//     individualOrderTel.addEventListener('input', checkIndividualOrderInputs)
+
+
+//     // // Якщо введено ім'я і телефон користувачем - кнопка "Залишити заявку" стане активною
+//     function checkIndividualOrderInputs() {
+//       const nameValue = individualOrderName.value.trim();
+
+//       individualOrderButton.classList.toggle('disabled-button', !(nameValue && iti.isValidNumber()));
+//       individualOrderButton.disabled = !(nameValue && iti.isValidNumber());
+//     }
+
+//     individualOrderForm.addEventListener('submit', (event) => {
+//       event.preventDefault();
+
+//       try {
+//         async function fetchData() {
+//           // Вміст POST-запиту потрібно буде змінити коли буде готовий ендпоінт 
+//           // і відповідно до нього правильно передати параметри.
+//           const response = await axios.post(
+//             'https://jsonplaceholder.typicode.com/posts111111/1', 
+//             {selectedProduct, minBudget, maxBudget}
+//           );
+    
+//           // В разі успіху присвоюємо відповідь в змінну
+//           filteredProductsList = response.data;
+//         }
+      
+//         fetchData();
+//       } catch (error) {
+//         console.error('Помилка GET-запиту:', error);
+//       }
+//     })
+
+//       // Слухаємо подію input на полі вводу
+//     // input.addEventListener('input', function() {
+//     // //   var enteredValue = this.value;
+
+//     //   // Отримуємо значення, яке було введено у полі вводу
+//     //   var phoneNumber = iti.getNumber();
+    
+//     // //   // Перевірка на валідність номера
+//     // //   var isValid = iti.isValidNumber();
+
+//     //   if (iti.isValidNumber()) {
+//     //     input.dataset.telNumber = phoneNumber;
+//     //   }
+    
+//     // //   // Обробка даних
+//     // //   // console.log("Введений номер:", phoneNumber);
+//     // //   // console.log("Чи валідний номер:", isValid);
+//     // });
+    
+
+//     // When the plugin loads for the first time, we have to trigger the "countrychange" event manually, 
+//     // but after making sure that the plugin is fully loaded by associating handler to the promise of the 
+//     // plugin instance.
+
+//     iti.promise.then(function() {
+//       $(phoneInputClass).trigger("countrychange");
+//     });
+//   }
+// );
