@@ -201,89 +201,74 @@ document.addEventListener('DOMContentLoaded', function () {
 //   }
 // });
 
-// Make sure to place this snippet in the footer or at least after
-// the HTML input we're targeting.
 
-// $(document).ready(function() {
-//   const phoneInputID = "input[name=leyka_donor_phone]";
-//   const input = document.querySelectorAll(phoneInputID);
+// CALL-BACK-MODAL
+$(document).ready(function() {
+  const phoneInputClass = ".call-back-modal-tel";
+  const callBackForm = document.querySelector('.call-back-modal-form');
+  const callBackInputTel = document.querySelector(phoneInputClass);
+  const callBackButton = document.querySelector('.call-back-modal-button');
 
-//   for (let i = 0; i < input.length; i++) {
-//     const iti = window.intlTelInput(input[i], {
-//       // allowDropdown: false,
-//       // autoHideDialCode: false,
-//       // autoPlaceholder: "off",
-//       // dropdownContainer: document.body,
-//       // excludeCountries: ["us"],
-//       formatOnDisplay: true,
-//       // geoIpLookup: function(callback) {
-//       //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
-//       //     var countryCode = (resp && resp.country) ? resp.country : "";
-//       //     callback(countryCode);
-//       //   });
-//       // },
-//       hiddenInput: "full_number",
-//       // initialCountry: "auto",
-//       // localizedCountries: { 'de': 'Deutschland' },
-//       // nationalMode: false,
-//       // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-//       // placeholderNumberType: "MOBILE",
-//       preferredCountries: ['ua', 'pl'],
-//       // separateDialCode: true,
-//       utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js"
-//     });
+    const iti = window.intlTelInput(callBackInputTel, {
+      formatOnDisplay: true,
+      hiddenInput: "full_number",
+      preferredCountries: ['ua', 'pl'],
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js"
+    });
 
 
-//     $(phoneInputID).on("countrychange", function(event) {
+    $(phoneInputClass).on("countrychange", function(event) {
+      // Отримання інформації про вибрану країну, щоб знати яку країну обрано
+      const selectedCountryData = iti.getSelectedCountryData();
 
-//       // Get the selected country data to know which country is selected.
-//       const selectedCountryData = iti.getSelectedCountryData();
+      // Отримання номера зразка для вибраної країни, щоб використати його як плейсхолдер
+      const newPlaceholder = intlTelInputUtils.getExampleNumber(selectedCountryData.iso2, true, intlTelInputUtils.numberFormat.INTERNATIONAL);
 
-//       input[i].dataset.selectedCountry = selectedCountryData.dialCode;
-
-//       // Get an example number for the selected country to use as placeholder.
-//       const newPlaceholder = intlTelInputUtils.getExampleNumber(selectedCountryData.iso2, true, intlTelInputUtils.numberFormat.INTERNATIONAL),
-
-//       // Reset the phone number input.
-//       // iti.setNumber("");
+      // Обнулення телефонного номеру
+      iti.setNumber("");
       
-//       // Convert placeholder as exploitable mask by replacing all 1-9 numbers with 0s
-//       mask = newPlaceholder.replace(/[1-9]/g, "0");
+      // Маска заповнювач, яка замінить усі чила на 0
+      const mask = newPlaceholder.replace(/[1-9]/g, "0");
       
-//       // Apply the new mask for the input
-//       $(this).mask(mask);
-//     });
+      // Накладання маски на input
+      $(this).mask(mask);
+    });
 
-//       // Слухаємо подію input на полі вводу
-//     input[i].addEventListener('input', function() {
-//     //   var enteredValue = this.value;
+    // Слухач подій на полі для вводу номеру телефону 
+    // потрібен для того щоб зробити кнопку активною
+    callBackInputTel.addEventListener('input', checkQuickOrderInputs)
 
-//       // Отримуємо значення, яке було введено у полі вводу
-//       var phoneNumber = iti.getNumber();
+
+    // // Якщо введено валідний номер телефону - кнопка "Відправити" стане активною
+    function checkQuickOrderInputs() {
+      callBackButton.classList.toggle('disabled-button', !(iti.isValidNumber()));
+      callBackButton.disabled = !(iti.isValidNumber());
+    }
+
+    // Обробник події 'submit' при натисканні кнопки "Відправити"
+    callBackForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
     
-//     //   // Перевірка на валідність номера
-//     //   var isValid = iti.isValidNumber();
-
-//       if (iti.isValidNumber()) {
-//         input[i].dataset.telNumber = phoneNumber;
-//       }
+      const telValue = iti.getNumber();
     
-//     //   // Обробка даних
-//     //   // console.log("Введений номер:", phoneNumber);
-//     //   // console.log("Чи валідний номер:", isValid);
-//     });
+      try {
+        const response = await axios.post(
+          'https://jsonplaceholder.typicode.com/posts111111/1', // потрібно буде змінити коли буде готовий ендпоінт 
+          { telValue }
+        );
     
+        console.log('Успішний POST-запит:', response.data);
+      } catch (error) {
+        console.error('Помилка POST-запиту:', error);
+      }
+    });
 
-//     // When the plugin loads for the first time, we have to trigger the "countrychange" event manually, 
-//     // but after making sure that the plugin is fully loaded by associating handler to the promise of the 
-//     // plugin instance.
-
-//     iti.promise.then(function() {
-//       $(phoneInputID).trigger("countrychange");
-//     });
-//   }
-// });
-
+    // Коли плагін завантажується вперше потрібно тригернути "countrychange" подію вручну
+    iti.promise.then(function() {
+      $(phoneInputClass).trigger("countrychange");
+    });
+  }
+);
 
 // SLIDER-header
 
