@@ -3924,6 +3924,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
+  border: 1px solid #ced4da;
 }
 
 .individual-order-modal-name {
@@ -3932,6 +3933,10 @@ footer {
 
 .individual-order-modal-tel {
   padding: 10px;
+}
+
+.individual-order-modal-accordion-item {
+  border-width: 0;
 }
 
 .individual-order-modal-price {
