@@ -2760,7 +2760,8 @@ button {
   }
 
   .quick-selection-menu-image {
-      background-image: none;
+    width: 0;
+    height: 0;
   }
 
   .quick-selection-menu-btn {
