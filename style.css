@@ -2463,6 +2463,16 @@ button {
     height: calc((100vw * 5) / 17);
     position: relative;
 }
+/* 
+.slider-order-button {
+  position: relative; */
+  /* z-index: var(--layer-3); */
+  /* bottom: 40px; */
+  /* left: 13%; */
+/* } */
+/* .slide_group {
+  padding: 200px;
+} */
 
 .slider-container-header .slide_viewer {
     width: 100%;
@@ -2585,6 +2595,12 @@ button {
 
 .slider-container-header .slide_group.animated {
     transition: left 0.5s ease;
+}
+
+@media only screen and (max-width: 1920px) {
+    .slider-container-header .slide-info-conatiner {
+        padding: 0 150px;
+    }
 }
 
 @media only screen and (max-width: 767px) {
