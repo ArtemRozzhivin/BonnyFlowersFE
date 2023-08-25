@@ -802,6 +802,7 @@ const filteredProductsList = [
     discount_price: '179,00',
     discount: '10',
     product_url: 'https://jsonplaceholder.typicode.com/posts111111/1',
+    article: '1111',
   },
   {
     img_url: './img/flower-img.png',
@@ -810,6 +811,7 @@ const filteredProductsList = [
     discount_price: '279,00',
     discount: '20',
     product_url: 'https://jsonplaceholder.typicode.com/posts111111/1',
+    article: '2222',
   },
   {
     img_url: './img/flower-img.png',
@@ -818,6 +820,7 @@ const filteredProductsList = [
     discount_price: '379,00',
     discount: '30',
     product_url: 'https://jsonplaceholder.typicode.com/posts111111/1',
+    article: '3333',
   },
   {
     img_url: './img/flower-img.png',
@@ -826,6 +829,7 @@ const filteredProductsList = [
     discount_price: '479,00',
     discount: '40',
     product_url: 'https://jsonplaceholder.typicode.com/posts111111/1',
+    article: '4444',
   },
   {
     img_url: './img/flower-img.png',
@@ -834,6 +838,7 @@ const filteredProductsList = [
     discount_price: '579,00',
     discount: '50',
     product_url: 'https://jsonplaceholder.typicode.com/posts111111/1',
+    article: '5555',
   },
   {
     img_url: './img/flower-img.png',
@@ -842,6 +847,7 @@ const filteredProductsList = [
     discount_price: '679,00',
     discount: '60',
     product_url: 'https://jsonplaceholder.typicode.com/posts111111/1',
+    article: '6666',
   },
   {
     img_url: './img/flower-img.png',
@@ -850,6 +856,7 @@ const filteredProductsList = [
     discount_price: '779,00',
     discount: '70',
     product_url: 'https://jsonplaceholder.typicode.com/posts111111/1',
+    article: '7777',
   },
   {
     img_url: './img/flower-img.png',
@@ -858,6 +865,7 @@ const filteredProductsList = [
     discount_price: '879,00',
     discount: '80',
     product_url: 'https://jsonplaceholder.typicode.com/posts111111/1',
+    article: '8888',
   },
 ];
 
@@ -1170,73 +1178,32 @@ $(document).ready(function() {
 // Додаємо інформацію з вибраної карточки в modal quick order
 document.addEventListener('DOMContentLoaded', function () {
   const quickOrderButton = document.querySelector('.results-fast-search');
-  const quickOrderTitle = document.querySelector('.quick-order-modal-title');
-  let currentCard = null;
 
-    quickOrderButton.addEventListener('click', (event) => {
-      const card = event.target.closest('.quick-order-link');
+  // Знаходимо 
+  quickOrderButton.addEventListener('click', (event) => {
+    const card = event.target.closest('.quick-order-link');
 
-      if (!card || !quickOrderButton.contains(card)) {
-        return;
-      }
+    if (!card || !quickOrderButton.contains(card)) {
+      return;
+    }
 
-      const productId = card.dataset.productId;
-      const selectedProduct = filteredProductsList[productId];
-      
-      // Створюємо новий елемент для вмісту карточки
-      const newCardElement = createCardElement(selectedProduct);
+    // Отримуємо з дата-атрибута id карточки по якій було зроблено клік
+    const productId = card.dataset.productId;
+    // Знаходимо потрібний об'єкт з даними зі списку продуктів
+    const selectedProduct = filteredProductsList[productId];
+    
+    const prodTitle = document.querySelector('.quick-order-modal-card-title');
+    const prodArticle = document.querySelector('.quick-order-modal-card-article');
+    const currentPrice = document.querySelector('.quick-order-modal-card-price');
+    const oldPrice = document.querySelector('.quick-order-modal-card-old-price');
+    const prodImg = document.querySelector('.quick-order-modal-card-img');
 
-      // Замінюємо поточний елемент новим
-      if (currentCard) {
-        replaceElement(currentCard, newCardElement);
-      } else {
-        insertAfter(quickOrderTitle, newCardElement);
-      }
-      currentCard = newCardElement; // Оновлюємо посилання на поточний елемент
-    });
-
-    // створює нову карточку на основі посилання на якому відбувся клік
-  function createCardElement(product) {
-    const cardElement = document.createElement('div');
-    cardElement.classList.add('card-s');
-    cardElement.innerHTML = `
-      <div class="card-s">
-        <div class="img-box">
-          <img src="./img/flower-img.png" alt="name-of-this-flower" />
-        </div>
-        <div class="prod-desc">
-          <div class="card-top">
-            <div class="prod-title">
-              <h3 class="p-16-auto-bold">${product.title}</h3>
-              <p class="p-16-auto-regular">Артикул: 2222</p>
-            </div>
-          </div>
-          <div class="card-bottom">
-            <div class="prod-price">
-              <div class="current-price">
-                <p class="p-16-auto-regular">Ціна:</p>
-                <p class="p-16-auto-bold red">${product.discount_price} ₴</p>
-              </div>
-              <div class="old-price">
-                <p class="p-16-auto-medium grey">${product.price} ₴</p>
-              </div>
-            </div>
-            <div class="product-count" id="counter">
-              <p class="p-14-auto-medium">1 шт.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-    return cardElement;
-  }
-
-  function replaceElement(oldElement, newElement) {
-    oldElement.parentNode.replaceChild(newElement, oldElement);
-  }
-
-  function insertAfter(referenceElement, newElement) {
-    referenceElement.parentNode.insertBefore(newElement, referenceElement.nextSibling);
-  }
+    // Призначаємо дані продукта в картку в modal quick order
+    prodTitle.textContent = selectedProduct.title;
+    prodArticle.textContent = `Артикул: ${selectedProduct.article}`;
+    currentPrice.textContent = `${selectedProduct.discount_price} ₴`;
+    oldPrice.textContent = `${selectedProduct.price} ₴`;
+    prodImg.src = selectedProduct.img_url;
+    prodImg.alt = selectedProduct.title;
+  });
 });
-

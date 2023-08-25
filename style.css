@@ -3964,3 +3964,12 @@ footer {
   display: none;
   padding: 0;
 }
+
+/* MODAL-QUICK-ORDER */
+.quick-order-modal-name {
+  padding: 13px;
+}
+
+.quick-order-modal-tel {
+  padding: 10px;
+}
