@@ -2858,14 +2858,15 @@ button {
     position: absolute;
     max-width: 1090px;
     width: 100%;
-    flex-wrap: wrap;
-    align-content: flex-start;
     justify-content: center;
     gap: 15px 35px;
     padding: 15px 0;
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+}
+.slider-product-container .slide-card-container .card-xl {
+  justify-self: center;
 }
 
 @media only screen and (max-width: 767px) {
