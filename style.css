@@ -2496,7 +2496,7 @@ button {
     gap: 15px;
     bottom: 40px;
     right: 15vw;
-    z-index: var(--layer-2);
+    /* z-index: var(--layer-2); */
 }
 
 .slider-container-header a.slide_btn {
@@ -2865,6 +2865,7 @@ button {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
+
 .slider-product-container .slide-card-container .card-xl {
   justify-self: center;
 }
@@ -3967,6 +3968,10 @@ footer {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+}
+
+.individual-order-modal-icon-load {
+  color: var(--red, #8E1533);
 }
 
 .individual-order-modal-placeholder {
